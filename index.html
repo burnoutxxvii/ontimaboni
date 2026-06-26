@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONTI MA BONI · Scegli il tuo starter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0E0F; --bone:#F4F1E9; --amber:#F2B441; --muted:#8c887e;
+    --fire:#F2542D; --water:#2E9BD6; --grass:#5FB04A;
+    --line:rgba(244,241,233,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:#000}
+  body{
+    font-family:"Barlow Condensed",Arial,sans-serif;color:var(--bone);
+    background:radial-gradient(130% 90% at 50% -10%,#1b1b1e 0%,#0d0d0e 55%,#070707 100%);
+    min-height:100vh;padding:34px 18px 48px;-webkit-font-smoothing:antialiased;
+    position:relative;overflow-x:hidden;
+  }
+  body::before{ /* grain */
+    content:"";position:fixed;inset:0;opacity:.05;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(255,255,255,.7) .5px,transparent .6px);background-size:3px 3px;
+  }
+  .watermark{
+    position:fixed;top:50%;left:50%;width:560px;transform:translate(-50%,-46%);
+    opacity:.035;pointer-events:none;z-index:0;filter:grayscale(1);
+  }
+  .wrap{position:relative;z-index:2;max-width:1080px;margin:0 auto}
+
+  /* Header */
+  header{text-align:center;margin-bottom:30px}
+  .skull{height:78px;display:block;margin:0 auto 14px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5))}
+  .word{width:320px;max-width:74%;display:block;margin:0 auto 18px}
+  .title{
+    font-family:"Permanent Marker",cursive;font-size:38px;line-height:1.02;color:var(--bone);
+    text-shadow:0 3px 0 rgba(0,0,0,.45);
+  }
+  .title .hl{color:var(--amber)}
+  .sub{
+    font-family:"Oswald",sans-serif;text-transform:uppercase;letter-spacing:.32em;
+    font-size:12px;color:var(--muted);margin-top:12px;padding-left:.32em;
+  }
+
+  /* Grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px}
+
+  .card{
+    --type:var(--amber);
+    background:linear-gradient(180deg,#141416,#0e0e10);
+    border:2px solid var(--line);border-radius:18px;
+    padding:26px 20px 24px;text-align:center;position:relative;
+    display:flex;flex-direction:column;align-items:center;
+    transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+    animation:rise .6s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .card:nth-child(1){animation-delay:.05s}
+  .card:nth-child(2){animation-delay:.15s}
+  .card:nth-child(3){animation-delay:.25s}
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+  .card:hover{transform:translateY(-8px);border-color:var(--type);
+    box-shadow:0 0 0 1px var(--type),0 18px 40px rgba(0,0,0,.5),0 0 34px -6px var(--type)}
+  .card.selected{border-color:var(--type);box-shadow:0 0 0 2px var(--type),0 0 50px -4px var(--type);
+    transform:translateY(-6px) scale(1.015)}
+  .grid.has-selection .card:not(.selected){opacity:.42;filter:saturate(.6)}
+
+  .badge{
+    font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.22em;
+    font-size:11px;color:#0e0e10;background:var(--type);padding:5px 12px;border-radius:999px;
+    display:inline-block;margin-bottom:4px;
+  }
+  .name{font-family:"Permanent Marker",cursive;font-size:22px;color:var(--bone);margin:8px 0 2px}
+
+  .stage{height:150px;display:flex;align-items:flex-end;justify-content:center;margin:6px 0 10px}
+  .mon{height:140px;animation:bob 3.2s ease-in-out infinite}
+  .card:nth-child(2) .mon{animation-delay:-1.1s}
+  .card:nth-child(3) .mon{animation-delay:-2.0s}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(1deg)}}
+  .card:hover .mon{animation-duration:1.4s}
+
+  .prompt{font-size:18px;line-height:1.25;color:var(--bone);min-height:48px;
+    display:flex;align-items:center;justify-content:center;margin:4px 6px 16px;letter-spacing:.01em}
+  .prompt b{color:var(--type);font-weight:600}
+
+  .btn{
+    font-family:"Oswald",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+    font-size:15px;color:#0e0e10;background:var(--bone);border:none;border-radius:10px;
+    padding:13px 22px;width:100%;cursor:pointer;transition:transform .12s ease,background .2s ease;
+    position:relative;overflow:hidden;
+  }
+  .btn:hover{background:var(--type);color:#0e0e10}
+  .btn:active{transform:scale(.97)}
+  .btn:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+  footer{text-align:center;margin-top:40px;font-family:"Oswald",sans-serif;
+    text-transform:uppercase;letter-spacing:.3em;font-size:10px;color:var(--muted)}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(30px);
+    background:var(--bone);color:#0e0e10;font-family:"Oswald",sans-serif;font-weight:600;
+    text-transform:uppercase;letter-spacing:.1em;font-size:13px;padding:13px 20px;border-radius:10px;
+    box-shadow:0 14px 34px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.28s ease;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast .pin{color:var(--accent,#F2542D)}
+
+  @media (max-width:760px){
+    .grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+    .title{font-size:30px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .mon,.card{animation:none!important}
+  }
+</style>
+</head>
+<body>
+  <img class="watermark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAasAAAMvCAYAAABsr/+KAADxpElEQVR4nOydd1gUV/fHzywsbelVBUQBBRTEil3BAoK9IPZeE41Rk9hT1F+iJrEbRU3U2HtHsQGKgooKWMCCioCCorSlbrm/P8zyKgJb5s7O7O79PM/7vHF35szZmWG+c+499xzKxsYGCARtAiEE+fn5IJVKsdq1sbEBX1/f7Pr16zsYGBgovJ9EIgGxWFz574qKCkAIAQCAVCoFkUhU7XcAAKWlpRnZ2dnzX7x4sa+srAzDr/gcc3Nz4PP52O0SCLihiFgRAAAaN2581tPTM0QkEkFWVlbGw4cP60skErbdUgmRSASFhYXY7FEUBW3btj3u4+MzgKIobHaVQSQSwd27d5ckJycv/1TM6GJkZAQCgQCbPQKBKYhY6TgDBw5Ec+bMAS8vr88+z8nJgQ0bNsC2bdsoTROt4uJiwBWFUBQF3bt3L3J1dTXFYpAmmZmZEBkZie2a8Hg8sLS0BLZEmEBQFCJWOoqenh6sXbsWDR8+vNbtYmNjYfjw4dalpaV5anKNNvn5+YDrYd62bdtDvr6+oViMYeLly5dw4cIFbOpiYWEB+vr6uMwRCIzAY9sBAjssXbpUrlABAHTq1Ak2bdr0QQ0uYUEqlWITKnt7e2jWrBmnhAoAoEGDBuDt7f01LnufzqcRCFyFiJUO0qxZs1eTJ09WePt+/fpB586d8U2UMAjOIcs2bdogrg6PtW7deqOhoSEWW0SsCJoAESsdZMKECc48nnKXfsKECQx5gxdcYmVhYQGOjo5YbDGBgYEBNGnSZAUOW0SsCJoAESsdpHv37krv0759ewY8wQ8usXJ3d9+AxRCDNGrUaB4OO7hT/AkEJiBipWOYmJjY161bV+n9bG1twdjY2IoBl7CC68Hr4OAwA4shBrG0tMSSdo4QIoJF4DxErHQMCwsLlRMG9PX17XH6wgS4HrqakiVrY2PjhMMOzrVbBAITkHxVHYPH42FZL0RRFJibm7eysLAI1dfXtzczMwsxNzd30NfXBzMzMzAwMAATExMwMTEBPp8PfD4fTE1NQSwWQ05ODly/fj0mNTXVH4cvuNHT0wNjY2O23VAIgUDQBQD20bVDxIrAdYhYERTm6tWrqWZmZmBubg7KJmhUQ9cbN26g77///tLjx4974vAPAM9DF8NvUxsGBgaubPtAIKgDIlZahL6+PtjY2Iyzs7ObV79+fU9bW1uwsbGBBg0agOy/7ezsVLbv7OyM0VuADh06QGRkZI+RI0ei69evY8kRx5Fq/mmtPgKBLQwMDMDLyyu7qKgo4vnz55qRjssgRKw0CH19fWjYsOFxZ2fnAc7OztC4cWNwcHCA+vXrg52dHdSpU0fjipKamprC7t27ISAg4M/09PS5dO3hWhcllUo1KsIi0KNp06ZJYWFhzdq3bw8uLi5gbW0N79+/hydPnkB8fDycOHEi+eHDh77q8qdu3bpfHz16dGPjxo0BAMbv379//KxZsyguJcKYmJjYh4SE5HTu3BkEAgFcv34d9uzZQzH1skfKLXEMIyMjgbu7e4K7u7tn/fr1wcXFBdzd3cHd3R1sbGy0tizOsWPHYMqUKbSVpqioCCoqKmj7M27cOKRMZXW2uHbt2siUlBTac1aWlpagp6eHwyWNwsnJafHy5cuXhYSEyH05iYmJgf/7v/+ruHv3Lp7V2DVAURRERUUhb29vAPg4tE1RFGzfvh3mz5/P6ip1Y2Njqx49enwYOHAg9OjRA0xMTD77PiEhAUJDQz2Liooe4z42p8XK2dl5adOmTZc4OzuDg4MD6OnpAUIIKioq4N27d/Dy5UtISUmZ8/r16zVs+6os/y3q/NCgQQMrX19fcHFxAU9PT3B3d9fJN3qxWAzNmjUb+fbtW1oPXlxiNWrUKFT1D5GLxMTEDHj8+PFJunbY [truncated]
+  <div class="wrap">
+    <header>
+      <img class="skull" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAasAAAMvCAYAAABsr/+KAADxpElEQVR4nOydd1gUV/fHzywsbelVBUQBBRTEil3BAoK9IPZeE41Rk9hT1F+iJrEbRU3U2HtHsQGKgooKWMCCioCCorSlbrm/P8zyKgJb5s7O7O79PM/7vHF35szZmWG+c+499xzKxsYGCARtAiEE+fn5IJVKsdq1sbEBX1/f7Pr16zsYGBgovJ9EIgGxWFz574qKCkAIAQCAVCoFkUhU7XcAAKWlpRnZ2dnzX7x4sa+srAzDr/gcc3Nz4PP52O0SCLihiFgRAAAaN2581tPTM0QkEkFWVlbGw4cP60skErbdUgmRSASFhYXY7FEUBW3btj3u4+MzgKIobHaVQSQSwd27d5ckJycv/1TM6GJkZAQCgQCbPQKBKYhY6TgDBw5Ec+bMAS8vr88+z8nJgQ0bNsC2bdsoTROt4uJiwBWFUBQF3bt3L3J1dTXFYpAmmZmZEBkZie2a8Hg8sLS0BLZEmEBQFCJWOoqenh6sXbsWDR8+vNbtYmNjYfjw4dalpaV5anKNNvn5+YDrYd62bdtDvr6+oViMYeLly5dw4cIFbOpiYWEB+vr6uMwRCIzAY9sBAjssXbpUrlABAHTq1Ak2bdr0QQ0uYUEqlWITKnt7e2jWrBmnhAoAoEGDBuDt7f01LnufzqcRCFyFiJUO0qxZs1eTJ09WePt+/fpB586d8U2UMAjOIcs2bdogrg6PtW7deqOhoSEWW0SsCJoAESsdZMKECc48nnKXfsKECQx5gxdcYmVhYQGOjo5YbDGBgYEBNGnSZAUOW0SsCJoAESsdpHv37krv0759ewY8wQ8usXJ3d9+AxRCDNGrUaB4OO7hT/AkEJiBipWOYmJjY161bV+n9bG1twdjY2IoBl7CC68Hr4OAwA4shBrG0tMSSdo4QIoJF4DxErHQMCwsLlRMG9PX17XH6wgS4HrqakiVrY2PjhMMOzrVbBAITkHxVHYPH42FZL0RRFJibm7eysLAI1dfXtzczMwsxNzd30NfXBzMzMzAwMAATExMwMTEBPp8PfD4fTE1NQSwWQ05ODly/fj0mNTXVH4cvuNHT0wNjY2O23VAIgUDQBQD20bVDxIrAdYhYERTm6tWrqWZmZmBubg7KJmhUQ9cbN26g77///tLjx4974vAPAM9DF8NvUxsGBgaubPtAIKgDIlZahL6+PtjY2Iyzs7ObV79+fU9bW1uwsbGBBg0agOy/7ezsVLbv7OyM0VuADh06QGRkZI+RI0ei69evY8kRx5Fq/mmtPgKBLQwMDMDLyyu7qKgo4vnz55qRjssgRKw0CH19fWjYsOFxZ2fnAc7OztC4cWNwcHCA+vXrg52dHdSpU0fjipKamprC7t27ISAg4M/09PS5dO3hWhcllUo1KsIi0KNp06ZJYWFhzdq3bw8uLi5gbW0N79+/hydPnkB8fDycOHEi+eHDh77q8qdu3bpfHz16dGPjxo0BAMbv379//KxZsyguJcKYmJjYh4SE5HTu3BkEAgFcv34d9uzZQzH1skfKLXEMIyMjgbu7e4K7u7tn/fr1wcXFBdzd3cHd3R1sbGy0tizOsWPHYMqUKbSVpqioCCoqKmj7M27cOKRMZXW2uHbt2siUlBTac1aWlpagp6eHwyWNwsnJafHy5cuXhYSEyH05iYmJgf/7v/+ruHv3Lp7V2DVAURRERUUhb29vAPg4tE1RFGzfvh3mz5/P6ip1Y2Njqx49enwYOHAg9OjRA0xMTD77PiEhAUJDQz2Liooe4z42p8XK2dl5adOmTZc4OzuDg4MD6OnpAUIIKioq4N27d/Dy5UtISUmZ8/r16zVs+6os/y3q/NCgQQMrX19fcHFxAU9PT3B3d9fJN3qxWAzNmjUb+fbtW1oPXlxiNWrUKFT1D5GLxMTEDHj8+PFJunbY [truncated]
+  <div class="wrap">
+    <header>
+      <img class="skull" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAasAAAMvCAYAAABsr/+KAADxpElEQVR4nOydd1gUV/fHzywsbelVBUQBBRTEil3BAoK9IPZeE41Rk9hT1F+iJrEbRU3U2HtHsQGKgooKWMCCioCCorSlbrm/P8zyKgJb5s7O7O79PM/7vHF35szZmWG+c+499xzKxsYGCARtAiEE+fn5IJVKsdq1sbEBX1/f7Pr16zsYGBgovJ9EIgGxWFz574qKCkAIAQCAVCoFkUhU7XcAAKWlpRnZ2dnzX7x4sa+srAzDr/gcc3Nz4PP52O0SCLihiFgRAAAaN2581tPTM0QkEkFWVlbGw4cP60skErbdUgmRSASFhYXY7FEUBW3btj3u4+MzgKIobHaVQSQSwd27d5ckJycv/1TM6GJkZAQCgQCbPQKBKYhY6TgDBw5Ec+bMAS8vr88+z8nJgQ0bNsC2bdsoTROt4uJiwBWFUBQF3bt3L3J1dTXFYpAmmZmZEBkZie2a8Hg8sLS0BLZEmEBQFCJWOoqenh6sXbsWDR8+vNbtYmNjYfjw4dalpaV5anKNNvn5+YDrYd62bdtDvr6+oViMYeLly5dw4cIFbOpiYWEB+vr6uMwRCIzAY9sBAjssXbpUrlABAHTq1Ak2bdr0QQ0uYUEqlWITKnt7e2jWrBmnhAoAoEGDBuDt7f01LnufzqcRCFyFiJUO0qxZs1eTJ09WePt+/fpB586d8U2UMAjOIcs2bdogrg6PtW7deqOhoSEWW0SsCJoAESsdZMKECc48nnKXfsKECQx5gxdcYmVhYQGOjo5YbDGBgYEBNGnSZAUOW0SsCJoAESsdpHv37krv0759ewY8wQ8usXJ3d9+AxRCDNGrUaB4OO7hT/AkEJiBipWOYmJjY161bV+n9bG1twdjY2IoBl7CC68Hr4OAwA4shBrG0tMSSdo4QIoJF4DxErHQMCwsLlRMG9PX17XH6wgS4HrqakiVrY2PjhMMOzrVbBAITkHxVHYPH42FZL0RRFJibm7eysLAI1dfXtzczMwsxNzd30NfXBzMzMzAwMAATExMwMTEBPp8PfD4fTE1NQSwWQ05ODly/fj0mNTXVH4cvuNHT0wNjY2O23VAIgUDQBQD20bVDxIrAdYhYERTm6tWrqWZmZmBubg7KJmhUQ9cbN26g77///tLjx4974vAPAM9DF8NvUxsGBgaubPtAIKgDIlZahL6+PtjY2Iyzs7ObV79+fU9bW1uwsbGBBg0agOy/7ezsVLbv7OyM0VuADh06QGRkZI+RI0ei69evY8kRx5Fq/mmtPgKBLQwMDMDLyyu7qKgo4vnz55qRjssgRKw0CH19fWjYsOFxZ2fnAc7OztC4cWNwcHCA+vXrg52dHdSpU0fjipKamprC7t27ISAg4M/09PS5dO3hWhcllUo1KsIi0KNp06ZJYWFhzdq3bw8uLi5gbW0N79+/hydPnkB8fDycOHEi+eHDh77q8qdu3bpfHz16dGPjxo0BAMbv379//KxZsyguJcKYmJjYh4SE5HTu3BkEAgFcv34d9uzZQzH1skfKLXEMIyMjgbu7e4K7u7tn/fr1wcXFBdzd3cHd3R1sbGy0tizOsWPHYMqUKbSVpqioCCoqKmj7M27cOKRMZXW2uHbt2siUlBTac1aWlpagp6eHwyWNwsnJafHy5cuXhYSEyH05iYmJgf/7v/+ruHv3Lp7V2DVAURRERUUhb29vAPg4tE1RFGzfvh3mz5/P6ip1Y2Njqx49enwYOHAg9OjRA0xMTD77PiEhAUJDQz2Liooe4z42p8XK2dl5adOmTZc4OzuDg4MD6OnpAUIIKioq4N27d/Dy5UtISUmZ8/r16zVs+6os/y3q/NCgQQMrX19fcHFxAU9PT3B3d9fJN3qxWAzNmjUb+fbtW1oPXlxiNWrUKFT1D5GLxMTEDHj8+PFJunbY [truncated]
+  <div class="wrap">
+    <header>
+      <img class="skull" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAasAAAMvCAYAAABsr/+KAADxpElEQVR4nOydd1gUV/fHzywsbelVBUQBBRTEil3BAoK9IPZeE41Rk9hT1F+iJrEbRU3U2HtHsQGKgooKWMCCioCCorSlbrm/P8zyKgJb5s7O7O79PM/7vHF35szZmWG+c+499xzKxsYGCARtAiEE+fn5IJVKsdq1sbEBX1/f7Pr16zsYGBgovJ9EIgGxWFz574qKCkAIAQCAVCoFkUhU7XcAAKWlpRnZ2dnzX7x4sa+srAzDr/gcc3Nz4PP52O0SCLihiFgRAAAaN2581tPTM0QkEkFWVlbGw4cP60skErbdUgmRSASFhYXY7FEUBW3btj3u4+MzgKIobHaVQSQSwd27d5ckJycv/1TM6GJkZAQCgQCbPQKBKYhY6TgDBw5Ec+bMAS8vr88+z8nJgQ0bNsC2bdsoTROt4uJiwBWFUBQF3bt3L3J1dTXFYpAmmZmZEBkZie2a8Hg8sLS0BLZEmEBQFCJWOoqenh6sXbsWDR8+vNbtYmNjYfjw4dalpaV5anKNNvn5+YDrYd62bdtDvr6+oViMYeLly5dw4cIFbOpiYWEB+vr6uMwRCIzAY9sBAjssXbpUrlABAHTq1Ak2bdr0QQ0uYUEqlWITKnt7e2jWrBmnhAoAoEGDBuDt7f01LnufzqcRCFyFiJUO0qxZs1eTJ09WePt+/fpB586d8U2UMAjOIcs2bdogrg6PtW7deqOhoSEWW0SsCJoAESsdZMKECc48nnKXfsKECQx5gxdcYmVhYQGOjo5YbDGBgYEBNGnSZAUOW0SsCJoAESsdpHv37krv0759ewY8wQ8usXJ3d9+AxRCDNGrUaB4OO7hT/AkEJiBipWOYmJjY161bV+n9bG1twdjY2IoBl7CC68Hr4OAwA4shBrG0tMSSdo4QIoJF4DxErHQMCwsLlRMG9PX17XH6wgS4HrqakiVrY2PjhMMOzrVbBAITkHxVHYPH42FZL0RRFJibm7eysLAI1dfXtzczMwsxNzd30NfXBzMzMzAwMAATExMwMTEBPp8PfD4fTE1NQSwWQ05ODly/fj0mNTXVH4cvuNHT0wNjY2O23VAIgUDQBQD20bVDxIrAdYhYERTm6tWrqWZmZmBubg7KJmhUQ9cbN26g77///tLjx4974vAPAM9DF8NvUxsGBgaubPtAIKgDIlZahL6+PtjY2Iyzs7ObV79+fU9bW1uwsbGBBg0agOy/7ezsVLbv7OyM0VuADh06QGRkZI+RI0ei69evY8kRx5Fq/mmtPgKBLQwMDMDLyyu7qKgo4vnz55qRjssgRKw0CH19fWjYsOFxZ2fnAc7OztC4cWNwcHCA+vXrg52dHdSpU0fjipKamprC7t27ISAg4M/09PS5dO3hWhcllUo1KsIi0KNp06ZJYWFhzdq3bw8uLi5gbW0N79+/hydPnkB8fDycOHEi+eHDh77q8qdu3bpfHz16dGPjxo0BAMbv379//KxZsyguJcKYmJjYh4SE5HTu3BkEAgFcv34d9uzZQzH1skfKLXEMIyMjgbu7e4K7u7tn/fr1wcXFBdzd3cHd3R1sbGy0tizOsWPHYMqUKbSVpqioCCoqKmj7M27cOKRMZXW2uHbt2siUlBTac1aWlpagp6eHwyWNwsnJafHy5cuXhYSEyH05iYmJgf/7v/+ruHv3Lp7V2DVAURRERUUhb29vAPg4tE1RFGzfvh3mz5/P6ip1Y2Njqx49enwYOHAg9OjRA0xMTD77PiEhAUJDQz2Liooe4z42p8XK2dl5adOmTZc4OzuDg4MD6OnpAUIIKioq4N27d/Dy5UtISUmZ8/r16zVs+6os/y3q/NCgQQMrX19fcHFxAU9PT3B3d9fJN3qxWAzNmjUb+fbtW1oPXlxiNWrUKFT1D5GLxMTEDHj8+PFJunbY [truncated]
+    <h1 class="title">La vita è una <span class="hl">questione di scelte</span></h1>
+      <div class="sub">Un solo click &middot; nessun ripensamento</div>
+    </header>
+
+      <div class="grid" id="grid">
+
+      <!-- Redirect fallback: the real page is OmB.html -->
+      <!-- This file intentionally redirects to OmB.html for quick deploy. -->
+      <script>if(location.pathname.endsWith('/index.html')||location.pathname==='/' ){location.replace('OmB.html');}</script>
+
+      <!-- 1 · ERBA · Brontolo -->
+      <div class="card" style="--type:var(--grass)" data-choice="non-simpatici" data-type="Erba">
+        <div class="name">Brontolo</div>
+        <div class="stage">
+          <svg class="mon" viewBox="0 0 120 132" fill="none">
+            <g stroke="#111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M60 24 V10" />
+              <path d="M60 18 C44 16 38 4 54 8 C58 10 60 16 60 18Z" fill="var(--grass)"/>
+              <path d="M60 20 C76 18 82 6 66 10 C62 12 60 18 60 20Z" fill="var(--grass)"/>
+              <ellipse cx="60" cy="76" rx="40" ry="38" fill="#F4F1E9"/>
+              <path d="M44 112 q-3 9 6 9"/>
+              <path d="M76 112 q3 9 -6 9"/>
+              <path d="M43 62 l11 11 M54 62 l-11 11"/>
+              <path d="M66 62 l11 11 M77 62 l-11 11"/>
+              <path d="M50 96 q10 -9 20 0"/>
+              <circle cx="37" cy="86" r="5" fill="var(--grass)" stroke="none"/>
+              <circle cx="83" cy="86" r="5" fill="var(--grass)" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+        <p class="prompt"><span>La serenità nel semplice</span></p>
+        <button class="btn" type="button" data-action="non-simpatici">Clicca qui</button>
+      </div>
+
+      <!-- 2 · FUOCO · Brustolín -->
+      <div class="card" style="--type:var(--fire)" data-choice="fame" data-type="Fuoco">
+        <div class="name">Brustol&igrave;n</div>
+        <div class="stage">
+          <svg class="mon" viewBox="0 0 120 132" fill="none">
+            <g stroke="#111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M60 6 C52 18 47 23 54 29 C49 25 49 33 60 37 C71 33 71 25 66 29 C73 23 68 18 60 6Z" fill="var(--fire)"/>
+              <ellipse cx="60" cy="80" rx="40" ry="36" fill="#F4F1E9"/>
+              <path d="M46 114 q-3 9 6 9"/>
+              <path d="M74 114 q3 9 -6 9"/>
+              <circle cx="48" cy="70" r="7" fill="#111" stroke="none"/>
+              <circle cx="72" cy="70" r="7" fill="#111" stroke="none"/>
+              <circle cx="50.4" cy="67.8" r="2.3" fill="#fff" stroke="none"/>
+              <circle cx="74.4" cy="67.8" r="2.3" fill="#fff" stroke="none"/>
+              <path d="M49 88 q11 19 22 0 q-11 7 -22 0Z" fill="#111"/>
+              <path d="M56 95 q4 7 8 0" fill="var(--fire)" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+        <p class="prompt"><span>Affamato di <b>gusto</b></span></p>
+        <button class="btn" type="button" data-action="fame">Clicca qui</button>
+      </div>
+
+*** End Patch
